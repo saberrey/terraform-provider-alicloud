@@ -7,6 +7,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
+
 	"github.com/alibabacloud-go/tea/tea"
 
 	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
@@ -345,6 +347,32 @@ func (s *CsService) CsKubernetesNodePoolStateRefreshFunc(id string, failStates [
 				return object, string(object.State), WrapError(Error(FailedToReachTargetStatus, string(object.State)))
 			}
 		}
+
+		return object, string(object.State), nil
+	}
+}
+
+func (s *CsService) CsKubernetesNodePoolStateRefreshFuncWaitForNodeCount(id string, failStates []string, d *schema.ResourceData) resource.StateRefreshFunc {
+	return func() (interface{}, string, error) {
+		object, err := s.DescribeCsKubernetesNodePool(id)
+		if err != nil {
+			if NotFoundError(err) {
+				// Set this to nil as if we didn't find anything.
+				return nil, "", nil
+			}
+			return nil, "", WrapError(err)
+		}
+
+		for _, failState := range failStates {
+			if string(object.State) == failState {
+				return object, string(object.State), WrapError(Error(FailedToReachTargetStatus, string(object.State)))
+			}
+		}
+
+		if object.TotalNodes != d.Get("node_count") {
+			return object, "scaling", nil
+		}
+
 		return object, string(object.State), nil
 	}
 }

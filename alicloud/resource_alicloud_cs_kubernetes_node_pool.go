@@ -477,7 +477,7 @@ func resourceAlicloudCSKubernetesNodePoolCreate(d *schema.ResourceData, meta int
 	d.SetId(fmt.Sprintf("%s%s%s", clusterId, COLON_SEPARATED, nodePool.NodePoolID))
 
 	// reset interval to 10s
-	stateConf := BuildStateConf([]string{"initial", "scaling"}, []string{"active"}, d.Timeout(schema.TimeoutCreate), 30*time.Second, csService.CsKubernetesNodePoolStateRefreshFunc(d.Id(), []string{"deleting", "failed"}))
+	stateConf := BuildStateConf([]string{"initial", "scaling"}, []string{"active"}, d.Timeout(schema.TimeoutCreate), 30*time.Second, csService.CsKubernetesNodePoolStateRefreshFuncWaitForNodeCount(d.Id(), []string{"deleting", "failed"}, d))
 	if _, err := stateConf.WaitForState(); err != nil {
 		return WrapErrorf(err, "ResourceID:%s , TaskID:%s ", d.Id(), nodePool.TaskID)
 	}
@@ -721,7 +721,7 @@ func resourceAlicloudCSNodePoolUpdate(d *schema.ResourceData, meta interface{}) 
 			addDebug("UpdateKubernetesNodePool", resoponse, resizeRequestMap)
 		}
 
-		stateConf := BuildStateConf([]string{"scaling", "updating"}, []string{"active"}, d.Timeout(schema.TimeoutUpdate), 30*time.Second, csService.CsKubernetesNodePoolStateRefreshFunc(d.Id(), []string{"deleting", "failed"}))
+		stateConf := BuildStateConf([]string{"scaling", "updating"}, []string{"active"}, d.Timeout(schema.TimeoutUpdate), 30*time.Second, csService.CsKubernetesNodePoolStateRefreshFuncWaitForNodeCount(d.Id(), []string{"deleting", "failed"}, d))
 
 		if _, err := stateConf.WaitForState(); err != nil {
 			return WrapErrorf(err, IdMsg, d.Id())
@@ -1446,7 +1446,7 @@ func attachExistingInstance(d *schema.ResourceData, meta interface{}) error {
 		return WrapErrorf(err, DefaultErrorMsg, ResourceName, "AttachInstances", AliyunTablestoreGoSdk)
 	}
 
-	stateConf := BuildStateConf([]string{"scaling"}, []string{"active"}, d.Timeout(schema.TimeoutUpdate), 30*time.Second, csService.CsKubernetesNodePoolStateRefreshFunc(d.Id(), []string{"deleting", "failed"}))
+	stateConf := BuildStateConf([]string{"scaling"}, []string{"active"}, d.Timeout(schema.TimeoutUpdate), 30*time.Second, csService.CsKubernetesNodePoolStateRefreshFuncWaitForNodeCount(d.Id(), []string{"deleting", "failed"}, d))
 	if _, err := stateConf.WaitForState(); err != nil {
 		return WrapErrorf(err, IdMsg, d.Id())
 	}
