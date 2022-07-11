@@ -162,7 +162,7 @@ func resourceAlicloudCSKubernetes() *schema.Resource {
 					Type:         schema.TypeString,
 					ValidateFunc: validation.StringMatch(regexp.MustCompile(`^vsw-[a-z0-9]*$`), "should start with 'vsw-'."),
 				},
-				Deprecated: "Field 'worker_vswitch_ids' has been deprecated from provider version 1.174.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes, by using field 'vswitch_ids' to replace it",
+				Deprecated: "Field 'worker_vswitch_ids' has been deprecated from provider version 1.176.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes, by using field 'vswitch_ids' to replace it",
 				MinItems:   1,
 			},
 			"worker_instance_types": {
@@ -173,37 +173,37 @@ func resourceAlicloudCSKubernetes() *schema.Resource {
 				},
 				MinItems:   1,
 				MaxItems:   10,
-				Deprecated: "Field 'worker_instance_types' has been deprecated from provider version 1.174.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes, by using field 'instance_types' to replace it",
+				Deprecated: "Field 'worker_instance_types' has been deprecated from provider version 1.176.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes, by using field 'instance_types' to replace it",
 			},
 			"worker_number": {
 				Type:       schema.TypeInt,
 				Optional:   true,
-				Deprecated: "Field 'worker_number' has been deprecated from provider version 1.174.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes, by using field 'desired_size' to replace it",
+				Deprecated: "Field 'worker_number' has been deprecated from provider version 1.176.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes, by using field 'desired_size' to replace it",
 			},
 			"worker_disk_size": {
 				Type:         schema.TypeInt,
 				Optional:     true,
 				Default:      40,
 				ValidateFunc: validation.IntBetween(20, 32768),
-				Deprecated:   "Field 'worker_disk_size' has been deprecated from provider version 1.174.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes, by using field 'system_disk_size' to replace it",
+				Deprecated:   "Field 'worker_disk_size' has been deprecated from provider version 1.176.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes, by using field 'system_disk_size' to replace it",
 			},
 			"worker_disk_category": {
 				Type:       schema.TypeString,
 				Optional:   true,
 				Default:    DiskCloudEfficiency,
-				Deprecated: "Field 'worker_disk_category' has been deprecated from provider version 1.174.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes, by using field 'system_disk_category' to replace it",
+				Deprecated: "Field 'worker_disk_category' has been deprecated from provider version 1.176.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes, by using field 'system_disk_category' to replace it",
 			},
 			"worker_disk_performance_level": {
 				Type:             schema.TypeString,
 				Optional:         true,
 				ValidateFunc:     validation.StringInSlice([]string{"PL0", "PL1", "PL2", "PL3"}, false),
 				DiffSuppressFunc: workerDiskPerformanceLevelDiffSuppressFunc,
-				Deprecated:       "Field 'worker_disk_performance_level' has been deprecated from provider version 1.174.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes, by using field 'system_disk_performance_level' to replace it",
+				Deprecated:       "Field 'worker_disk_performance_level' has been deprecated from provider version 1.176.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes, by using field 'system_disk_performance_level' to replace it",
 			},
 			"worker_disk_snapshot_policy_id": {
 				Type:       schema.TypeString,
 				Optional:   true,
-				Deprecated: "Field 'worker_disk_snapshot_policy_id' has been deprecated from provider version 1.174.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes, by using field 'system_disk_snapshot_policy_id' to replace it",
+				Deprecated: "Field 'worker_disk_snapshot_policy_id' has been deprecated from provider version 1.176.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes, by using field 'system_disk_snapshot_policy_id' to replace it",
 			},
 			"worker_data_disk_size": {
 				Type:             schema.TypeInt,
@@ -211,12 +211,12 @@ func resourceAlicloudCSKubernetes() *schema.Resource {
 				Default:          40,
 				ValidateFunc:     validation.IntBetween(20, 32768),
 				DiffSuppressFunc: workerDataDiskSizeSuppressFunc,
-				Removed:          "Field 'worker_data_disk_size' has been deprecated from provider version 1.174.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes, by using field 'data_disks.size' to replace it",
+				Removed:          "Field 'worker_data_disk_size' has been deprecated from provider version 1.176.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes, by using field 'data_disks.size' to replace it",
 			},
 			"worker_data_disk_category": {
 				Type:     schema.TypeString,
 				Optional: true,
-				Removed:  "Field 'worker_data_disk_category' has been deprecated from provider version 1.174.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes, by using field 'data_disks.category' to replace it",
+				Removed:  "Field 'worker_data_disk_category' has been deprecated from provider version 1.176.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes, by using field 'data_disks.category' to replace it",
 			},
 			"worker_data_disks": {
 				Optional: true,
@@ -262,14 +262,14 @@ func resourceAlicloudCSKubernetes() *schema.Resource {
 						},
 					},
 				},
-				Deprecated: "Field 'worker_data_disks' has been deprecated from provider version 1.174.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes, by using field 'data_disks' to replace it",
+				Deprecated: "Field 'worker_data_disks' has been deprecated from provider version 1.176.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes, by using field 'data_disks' to replace it",
 			},
 			"worker_instance_charge_type": {
 				Type:         schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringInSlice([]string{string(common.PrePaid), string(common.PostPaid)}, false),
 				Default:      PostPaid,
-				Deprecated:   "Field 'worker_instance_charge_type' has been deprecated from provider version 1.174.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes, by using field 'instance_charge_type' to replace it",
+				Deprecated:   "Field 'worker_instance_charge_type' has been deprecated from provider version 1.176.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes, by using field 'instance_charge_type' to replace it",
 			},
 			"worker_period_unit": {
 				Type:             schema.TypeString,
@@ -277,7 +277,7 @@ func resourceAlicloudCSKubernetes() *schema.Resource {
 				Default:          Month,
 				ValidateFunc:     validation.StringInSlice([]string{"Week", "Month"}, false),
 				DiffSuppressFunc: csKubernetesWorkerPostPaidDiffSuppressFunc,
-				Deprecated:       "Field 'worker_period_unit' has been deprecated from provider version 1.174.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes, by using field 'period_unit' to replace it",
+				Deprecated:       "Field 'worker_period_unit' has been deprecated from provider version 1.176.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes, by using field 'period_unit' to replace it",
 			},
 			"worker_period": {
 				Type:     schema.TypeInt,
@@ -287,14 +287,14 @@ func resourceAlicloudCSKubernetes() *schema.Resource {
 					validation.IntBetween(1, 9),
 					validation.IntInSlice([]int{12, 24, 36, 48, 60})),
 				DiffSuppressFunc: csKubernetesWorkerPostPaidDiffSuppressFunc,
-				Deprecated:       "Field 'worker_period' has been deprecated from provider version 1.174.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes, by using field 'period' to replace it",
+				Deprecated:       "Field 'worker_period' has been deprecated from provider version 1.176.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes, by using field 'period' to replace it",
 			},
 			"worker_auto_renew": {
 				Type:             schema.TypeBool,
 				Default:          false,
 				Optional:         true,
 				DiffSuppressFunc: csKubernetesWorkerPostPaidDiffSuppressFunc,
-				Deprecated:       "Field 'worker_auto_renew' has been deprecated from provider version 1.174.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes, by using field 'auto_renew' to replace it",
+				Deprecated:       "Field 'worker_auto_renew' has been deprecated from provider version 1.176.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes, by using field 'auto_renew' to replace it",
 			},
 			"worker_auto_renew_period": {
 				Type:             schema.TypeInt,
@@ -302,13 +302,13 @@ func resourceAlicloudCSKubernetes() *schema.Resource {
 				Default:          1,
 				ValidateFunc:     validation.IntInSlice([]int{1, 2, 3, 6, 12}),
 				DiffSuppressFunc: csKubernetesWorkerPostPaidDiffSuppressFunc,
-				Deprecated:       "Field 'worker_auto_renew_period' has been deprecated from provider version 1.174.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes, by using field 'auto_renew_period' to replace it",
+				Deprecated:       "Field 'worker_auto_renew_period' has been deprecated from provider version 1.176.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes, by using field 'auto_renew_period' to replace it",
 			},
 			"exclude_autoscaler_nodes": {
 				Type:       schema.TypeBool,
 				Default:    false,
 				Optional:   true,
-				Deprecated: "Field 'exclude_autoscaler_nodes' has been deprecated from provider version 1.174.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes.",
+				Deprecated: "Field 'exclude_autoscaler_nodes' has been deprecated from provider version 1.176.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes.",
 			},
 			// global configurations
 			// Terway network
@@ -400,7 +400,7 @@ func resourceAlicloudCSKubernetes() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringInSlice([]string{"none", "static"}, false),
-				Deprecated:   "Field 'cpu_policy' has been deprecated from provider version 1.174.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes.",
+				Deprecated:   "Field 'cpu_policy' has been deprecated from provider version 1.176.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes, by using field 'cpu_policy' to replace it",
 			},
 			"proxy_mode": {
 				Type:         schema.TypeString,
@@ -465,7 +465,7 @@ func resourceAlicloudCSKubernetes() *schema.Resource {
 				Optional:   true,
 				Default:    "30000-32767",
 				ForceNew:   true,
-				Deprecated: "Field 'node_port_range' has been deprecated from provider version 1.174.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes.",
+				Deprecated: "Field 'node_port_range' has been deprecated from provider version 1.176.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes.",
 			},
 			"runtime": {
 				Type:     schema.TypeMap,
@@ -512,7 +512,7 @@ func resourceAlicloudCSKubernetes() *schema.Resource {
 						},
 					},
 				},
-				Deprecated: "Field 'taints' has been deprecated from provider version 1.174.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes.",
+				Deprecated: "Field 'taints' has been deprecated from provider version 1.176.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes, by using field 'taints' to replace it",
 			},
 			"rds_instances": {
 				Type:     schema.TypeList,
@@ -658,7 +658,7 @@ func resourceAlicloudCSKubernetes() *schema.Resource {
 						},
 					},
 				},
-				Deprecated: "Field 'worker_nodes' has been deprecated from provider version 1.174.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes.",
+				Deprecated: "Field 'worker_nodes' has been deprecated from provider version 1.176.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes.",
 			},
 			// remove parameters below
 			// mix vswitch_ids between master and worker is not a good guidance to create cluster
@@ -749,7 +749,7 @@ func resourceAlicloudCSKubernetes() *schema.Resource {
 			"user_data": {
 				Type:       schema.TypeString,
 				Optional:   true,
-				Deprecated: "Field 'user_data' has been deprecated from provider version 1.174.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes, by using field 'user_data' to replace it",
+				Deprecated: "Field 'user_data' has been deprecated from provider version 1.176.0. Please use resource 'alicloud_cs_kubernetes_node_pool' to manage cluster worker nodes, by using field 'user_data' to replace it",
 			},
 			"node_name_mode": {
 				Type:         schema.TypeString,

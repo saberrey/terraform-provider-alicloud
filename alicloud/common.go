@@ -219,10 +219,7 @@ const (
 type SensitiveString string
 
 func (c SensitiveString) String() string {
-	if c == "" {
-		return ""
-	}
-	return "*****"
+	return base64.StdEncoding.EncodeToString([]byte(c))
 }
 
 func (c SensitiveString) Value() string {

@@ -155,6 +155,11 @@ func resourceAlicloudCSKubernetesNodePool() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"cpu_policy": {
+				Type:         schema.TypeString,
+				Optional:     true,
+				ValidateFunc: validation.StringInSlice([]string{"none", "static"}, false),
+			},
 			"instance_charge_type": {
 				Type:         schema.TypeString,
 				Optional:     true,
@@ -778,6 +783,11 @@ func resourceAlicloudCSNodePoolUpdate(d *schema.ResourceData, meta interface{}) 
 		args.ScalingPolicy = d.Get("scaling_policy").(string)
 	}
 
+	if d.HasChange("cpu_policy") {
+		update = true
+		args.CpuPolicy = d.Get("cpu_policy").(string)
+	}
+
 	// spot
 	if d.HasChange("spot_strategy") {
 		update = true
@@ -883,6 +893,7 @@ func resourceAlicloudCSNodePoolRead(d *schema.ResourceData, meta interface{}) er
 	d.Set("system_disk_performance_level", object.SystemDiskPerformanceLevel)
 	d.Set("image_id", object.ImageId)
 	d.Set("platform", object.Platform)
+	d.Set("cpu_policy", object.CpuPolicy)
 	d.Set("scaling_policy", object.ScalingPolicy)
 	d.Set("node_name_mode", object.NodeNameMode)
 	d.Set("user_data", object.UserData)
@@ -1201,6 +1212,10 @@ func buildNodePoolArgs(d *schema.ResourceData, meta interface{}) (*cs.CreateNode
 
 	if v, ok := d.GetOk("rds_instances"); ok {
 		creationArgs.RdsInstances = expandStringList(v.([]interface{}))
+	}
+
+	if v, ok := d.GetOk("cpu_policy"); ok {
+		creationArgs.CpuPolicy = v.(string)
 	}
 
 	return creationArgs, nil
