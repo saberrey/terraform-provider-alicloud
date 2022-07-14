@@ -383,7 +383,7 @@ The following arguments are supported:
   -> **NOTE:** It is forbidden to set both `cis_enabled` and `soc_enabled` to `true`at the same time.
 * `rds_instances` - (Optional, Available in 1.176.0+) RDS instance list, You can choose which RDS instances whitelist to add instances to.
 * `system_disk_snapshot_policy_id` - (Optional, Available in 1.176.0+) The system disk snapshot policy id.
-* `cpu_policy` - (Optional, Available in 1.176.0+) Kubelet cpu policy. For Kubernetes 1.12.6 and later, its valid value is either `static` or `none`. Default to `none`.
+* `cpu_policy` - (Optional, Available in 1.176.0+) Kubelet cpu policy. For Kubernetes 1.12.6 and later, its valid value is either `static` or `none`. Default to `none` and modification is not supported.
 
 #### tags
 

@@ -783,11 +783,6 @@ func resourceAlicloudCSNodePoolUpdate(d *schema.ResourceData, meta interface{}) 
 		args.ScalingPolicy = d.Get("scaling_policy").(string)
 	}
 
-	if d.HasChange("cpu_policy") {
-		update = true
-		args.CpuPolicy = d.Get("cpu_policy").(string)
-	}
-
 	// spot
 	if d.HasChange("spot_strategy") {
 		update = true
